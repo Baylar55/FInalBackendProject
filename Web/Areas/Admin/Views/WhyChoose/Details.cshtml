@@ -1,0 +1,58 @@
+﻿@using Web.Areas.Admin.ViewModels.WhyChoose
+@model WhyChooseDetailsVM
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Model Table</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th>Photo</th>
+                        <td><img style="width:100px; height:100px; object-fit:contain; justify-content:flex-start" src="~/assets/img/@Model.PhotoName" /></td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>@Html.Raw(Model.Title)</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>@Html.Raw(Model.Description)</td>
+                    </tr>
+                    <tr>
+                        <th>Check</th>
+                        <td>@Html.Raw(Model.Check)</td>
+                    </tr>
+                  @*  <tr>
+                        <th>Patient Count</th>
+                        <td>@Model.SatisfiedPatientsCount</td>
+                    </tr>
+                    <tr>
+                        <th>Doctor Count</th>
+                        <td>@Model.DoctorsCount</td>
+                    </tr>
+                    <tr>
+                        <th>Quality</th>
+                        <td>@Model.Quality</td>
+                    </tr>
+                    <tr>
+                        <th>Experience</th>
+                        <td>@Model.Experience</td>
+                    </tr>*@
+                    <tr>
+                        <th>Created At</th>
+                        <td>@Model.CreatedAt.ToString("dddd, dd MMMM yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th>Modified At</th>
+                        <td>@Model.ModifiedAt.ToString("dddd, dd MMMM yyyy")</td>
+
+                    </tr>
+                </tbody>
+                <a asp-action="index" asp-controller="whychoose" class="btn btn-info mb-2">Go to Back</a>
+            </table>
+        </div>
+    </div>
+</div>

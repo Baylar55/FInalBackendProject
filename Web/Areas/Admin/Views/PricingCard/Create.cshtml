@@ -1,0 +1,70 @@
+﻿@using Core.Constants;
+@using Core.Entities;
+@using Web.Areas.Admin.ViewModels.PricingCard;
+@model PricingCardCreateVM;
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data" asp-action="create" asp-controller="pricingcard">
+                            <div class="form-group">
+                                <label asp-for="Title">Title</label>
+                                <textarea class="form-control" asp-for="Title"></textarea>
+                                <span class="text-danger" asp-validation-for="Title"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="SubTitle">Subtitle</label>
+                                <textarea class="form-control" asp-for="SubTitle"></textarea>
+                                <span class="text-danger" asp-validation-for="SubTitle"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="PriceUnit">Price Unit ($,TRY etc..)</label>
+                                <input class="form-control" asp-for="PriceUnit">
+                                <span class="text-danger" asp-validation-for="PriceUnit"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="PriceValue">Price Value</label>
+                                <input class="form-control" asp-for="PriceValue">
+                                <span class="text-danger" asp-validation-for="PriceValue"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="PricePer">Price per (month/year)</label>
+                                <input class="form-control" asp-for="PricePer">
+                                <span class="text-danger" asp-validation-for="PricePer"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Features">Features</label>
+                                <textarea class="form-control" asp-for="Features"></textarea>
+                                <span class="text-danger" asp-validation-for="Features"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Status">Status</label>
+                                <select asp-for="Status" asp-items="Html.GetEnumSelectList<CardStatus>()">
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
+
+<script>
+    const properties = ["Title", "SubTitle", "Features"]
+    properties.forEach(function (element) {
+        CKEDITOR.replace(`${element}`);
+    })
+</script>

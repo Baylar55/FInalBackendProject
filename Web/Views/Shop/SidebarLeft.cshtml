@@ -1,0 +1,105 @@
+﻿@using Web.ViewModels.Shop
+@model ShopIndexVM
+
+<!-- main starts -->
+<main>
+    <!-- main-frame section starts -->
+    <section class="main-frame no-select" style="background-image: url(/assets/images/shop-page-title.jpg);">
+        <div class="main-frame-title">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="main-frame-title-text">
+                            Shop
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="main-frame-breadcrumb">
+                            Home / Products
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- main-frame section ends -->
+    <!-- products section starts -->
+    <section class="products no-select">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="left-sidebar">
+                        <div class="search">
+                            <h4>Search</h4>
+                            <div class="search-product">
+                                <form method="get" asp-action="sidebarleft" asp-controller="shop">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label asp-for="Name">Name</label>
+                                                <input class="form-control" asp-for="Name" value="@(ViewBag.name ?? String.Empty)" />
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary me-2" style="margin-top:25px;height:45px;">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="categories">
+                            <h4>Product categories</h4>
+                            <ul>
+                                @foreach (var category in Model.ProductCategories)
+                                {
+                                    <li class="productCategory" data-id="@category.Id">@category.Title </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 products-side">
+                    <div class="row" id="productContainer">
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="col-lg-4 col-md-6 pb-5">
+                                <div class="productt" id="@product.Id">
+                                    <div class="product-image"
+                                     style="background-image: url(/assets/img/@product.PhotoName);">
+                                        <div class="basket-wishlist-compare d-flex justify-content-center">
+                                            <div class="add-basket text-center" id="addToCart" data-id="@product.Id">
+                                                <i class="fas fa-shopping-basket"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-inf">
+                                        <h5 class="productt-name">@product.Name</h5>
+                                        <p><span>$</span><span class="price">@product.Price</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="pagination d-flex justify-content-center">
+
+                            @if (Model.Page > 1)
+                            {
+                                var prevPage = Model.Page - 1;
+                                <a class="pagination-element" asp-action="sidebarleft" asp-controller="shop" asp-route-page="@prevPage" asp-route-name="@Model.Name"><i class="fa-solid fa-chevron-left"></i></a>
+                            }
+
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                <a asp-action="sidebarleft" asp-controller="shop" asp-route-page="@i" asp-route-name="@Model.Name" class="@(Model.Page==i ? "pagination-element pagination-active disabled" : "pagination-element")">@i</a>
+                            }
+                            @if (Model.PageCount != Model.Page)
+                            {
+                                var nextPage = @Model.Page + 1;
+                                <a class="pagination-element" asp-action="sidebarleft" asp-controller="shop" asp-route-page="@nextPage" asp-route-name="@Model.Name"><i class="fa-solid fa-chevron-right"></i></a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- products section ends -->
+</main>
+<!-- main ends -->

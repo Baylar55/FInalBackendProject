@@ -1,0 +1,47 @@
+﻿@using Web.Areas.Admin.ViewModels.LastestNews
+@model LastestNewsIndexVM
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Slider Table</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <a class="btn btn-primary mb-3" asp-action="create" asp-controller="lastestnews">Create Lastest News</a>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Photo</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th colspan="3" style="text-align:center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var slider in Model.LastestNews)
+                    {
+                        <tr>
+                            <td>@slider.Id</td>
+                            <td><img style="width:100px; height:100px; object-fit:contain; justify-content:flex-start" src="~/assets/img/@slider.PhotoName" /></td>
+                            <td>@Html.Raw(slider.Title)</td>
+                            <td>@slider.Type</td>
+                            <td width="20px">
+                                <a asp-action="update" asp-controller="lastestnews" asp-route-id="@slider.Id" class="btn btn-primary">Update</a>
+                            </td>
+                            <td width="20px">
+                                <form method="post">
+                                    <button asp-action="delete" asp-controller="lastestnews" asp-route-id="@slider.Id" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                            <td width="20px">
+                                <a asp-action="details" asp-controller="lastestnews" asp-route-id="@slider.Id" class="btn btn-info">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

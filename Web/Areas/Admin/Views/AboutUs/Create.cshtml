@@ -1,0 +1,76 @@
+﻿@using Web.Areas.Admin.ViewModels.AboutUs;
+@model AboutUsCreateVM
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Create About Us
+                        </p>
+                        <form method="post" enctype="multipart/form-data" asp-action="create" asp-controller="aboutus" asp-area="admin">
+                            
+                            <div class="form-group">
+                                <label asp-for="SubTitle">Subtitle</label>
+                                <textarea class="form-control" asp-for="SubTitle"></textarea>
+                                <span class="text-danger" asp-validation-for="SubTitle"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Title">Title</label>
+                                <textarea class="form-control" asp-for="Title"></textarea>
+                                <span class="text-danger" asp-validation-for="Title"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Content">Content</label>
+                                <textarea class="form-control" asp-for="Content"></textarea>
+                                <span class="text-danger" asp-validation-for="Content"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Description">Description</label>
+                                <textarea class="form-control" asp-for="Description"></textarea>
+                                <span class="text-danger" asp-validation-for="Description"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="SignaturePhoto">Signature Photo</label>
+                                <input class="form-control" asp-for="SignaturePhoto">
+                                <span class="text-danger" asp-validation-for="SignaturePhoto"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Photos">Photos</label>
+                                <input class="form-control" asp-for="Photos">
+                                @{
+                                    if (Html.ViewData.ModelState["AboutPhotos"] != null)
+                                    {
+                                        foreach (var error in Html.ViewData.ModelState["AboutPhotos"].Errors)
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
+
+<script>
+    const properties = ["Title", "Description", "SubTitle","Content"]
+
+    properties.forEach(function (element) {
+        CKEDITOR.replace(`${element}`);
+    })
+
+</script>

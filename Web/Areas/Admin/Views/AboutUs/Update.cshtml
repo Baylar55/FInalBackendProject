@@ -1,0 +1,109 @@
+﻿@using Web.Areas.Admin.ViewModels.AboutUs;
+@model AboutUsUpdateVM
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Update About Us
+                        </p>
+                        <form method="post" enctype="multipart/form-data" asp-action="update" asp-controller="aboutus" asp-area="admin">
+
+                            <div class="form-group">
+                                <label asp-for="SubTitle">Subtitle</label>
+                                <textarea class="form-control" asp-for="SubTitle"></textarea>
+                                <span class="text-danger" asp-validation-for="SubTitle"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Title">Title</label>
+                                <textarea class="form-control" asp-for="Title"></textarea>
+                                <span class="text-danger" asp-validation-for="Title"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Content">Content</label>
+                                <textarea class="form-control" asp-for="Content"></textarea>
+                                <span class="text-danger" asp-validation-for="Content"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Description">Description</label>
+                                <textarea class="form-control" asp-for="Description"></textarea>
+                                <span class="text-danger" asp-validation-for="Description"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="SignaturePhoto">Signature Photo</label>
+                                <input class="form-control" asp-for="SignaturePhoto">
+                                <span class="text-danger" asp-validation-for="SignaturePhoto"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="AboutPhotos">Photos</label>
+                                @*<input class="form-control" asp-for="AboutPhotos">*@
+                                @{
+                                    if (Html.ViewData.ModelState["AboutPhotos"] != null)
+                                    {
+                                        foreach (var error in Html.ViewData.ModelState["AboutPhotos"].Errors)
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2 mb-3">Submit</button>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th style="width:100px; text-align:center;">Photo</th>
+                                        <th style="width:30px;">Order</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var photo in Model.AboutPhotos)
+                                    {
+                                        <tr>
+                                            <td>@photo.Id</td>
+                                            <td><img style="height:150px;" src="~/assets/img/@photo.Name" /></td>
+                                            <td>@photo.Order</td>
+
+                                            <td class="d-flex">
+
+                                                <a class="btn btn-primary mr-2" asp-action="updatephoto" asp-controller="aboutus" asp-area="admin" asp-route-id=@photo.Id>Update</a>
+                                                <form method="post">
+                                                    <button asp-action="deletephoto" asp-controller="aboutus" asp-route-id="@photo.Id" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
+
+<script>
+    const properties = ["Title", "Description", "SubTitle", "Content"]
+
+    properties.forEach(function (element) {
+        CKEDITOR.replace(`${element}`);
+    })
+
+</script>

@@ -1,0 +1,104 @@
+﻿@using Core.Constants;
+@using Core.Entities;
+@using Web.Areas.Admin.ViewModels.Doctor
+@model DoctorCreateVM;
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form method="post" enctype="multipart/form-data" asp-action="create" asp-controller="doctor">
+                            <div class="form-group">
+                                <label asp-for="Name">Name</label>
+                                <input class="form-control" asp-for="Name">
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="SubTitle">Subtitle</label>
+                                <input class="form-control" asp-for="SubTitle">
+                                <span class="text-danger" asp-validation-for="SubTitle"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Skill">Skill</label>
+                                <textarea class="form-control" asp-for="Skill"></textarea>
+                                <span class="text-danger" asp-validation-for="Skill"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Specialty">Specialty</label>
+                                <select class="form-control" asp-for="Specialty" asp-items="@Html.GetEnumSelectList<DoctorSpeciality>()"></select>
+                                <span class="text-danger" asp-validation-for="Specialty"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Qualification">Qualification</label>
+                                <input class="form-control" asp-for="Qualification">
+                                <span class="text-danger" asp-validation-for="Qualification"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ContactInfo">ContactInfo</label>
+                                <textarea class="form-control" asp-for="ContactInfo"></textarea>
+                                <span class="text-danger" asp-validation-for="ContactInfo"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="WorkingTime">Working Time</label>
+                                <textarea class="form-control" asp-for="WorkingTime"></textarea>
+                                <span class="text-danger" asp-validation-for="WorkingTime"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="IntroductingSubTitle">Intro SubTitle</label>
+                                <textarea class="form-control" asp-for="IntroductingSubTitle"></textarea>
+                                <span class="text-danger" asp-validation-for="IntroductingSubTitle"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="IntroductingText">Introducting Text</label>
+                                <textarea class="form-control" asp-for="IntroductingText"></textarea>
+                                <span class="text-danger" asp-validation-for="IntroductingText"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ShowInHome" class="control-form ">Add to home page</label>
+                                <input class="px-2" id="add" type="checkbox" asp-for="ShowInHome" />
+                                <span asp-validation-for="ShowInHome" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Photo">Photo</label>
+                                <input class="form-control" asp-for="Photo">
+                                <span class="text-danger" asp-validation-for="Photo"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+<script>
+
+    const properties = ["Skill", "ContactInfo", "WorkingTime", "IntroductingSubTitle", "IntroductingText"]
+
+    properties.forEach(function (element) {
+
+        ClassicEditor
+            .create(document.querySelector(`#${element}`))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    })
+</script>

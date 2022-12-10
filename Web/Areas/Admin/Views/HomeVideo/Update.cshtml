@@ -1,0 +1,36 @@
+﻿@using Core.Constants;
+@using Core.Entities;
+@using Web.Areas.Admin.ViewModels.HomeVideo;
+@model HomeVideoUpdateVM;
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Update Home Video
+                        </p>
+                        <form method="post" enctype="multipart/form-data" asp-action="update" asp-controller="homevideo">
+                            <div class="form-group">
+                                <label asp-for="Url">VideoUrl</label>
+                                <textarea class="form-control" asp-for="Url"></textarea>
+                                <span class="text-danger" asp-validation-for="Url"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Photo">Photo</label>
+                                <input class="form-control" asp-for="Photo">
+                                <span class="text-danger" asp-validation-for="Photo"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

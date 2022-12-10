@@ -1,0 +1,115 @@
+﻿@using Web.ViewModels.Basket;
+@model BasketIndexVM
+
+<!-- main starts -->
+<main>
+    <!-- main-frame section starts -->
+    <section class="main-frame-2 no-select" style="background-image: url(/assets/images/cart-frame.jpg);">
+        <div class="main-frame-2-title">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="main-frame-2-title-text custom-title-text">
+                            Cart
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="main-frame-2-breadcrumb">
+                            Home / Cart
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- main-frame section ends -->
+    <!-- product-table section starts -->
+    <section class="product-table no-select">
+        <div class="container">
+            <form action="" class="pr-form">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="pr-name text-left" colspan="2">Product</th>
+                            <th class="pr-price text-center">Price</th>
+                            <th class="pr-quantity text-center">Quantity</th>
+                            <th class="pr-subtotal text-center">Total</th>
+                            <th class="pr-remove"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            @foreach (var basketProduct in Model.BasketProducts)
+                            {
+                                <tr class="basket-product" id="@basketProduct.Id">
+                                    <td class="pr-image"><div class="pr-img" style="background-image: url(/wwwroot/assets/img/@basketProduct.PhotoName)"></div></td>
+                                    <td class="pr-name">@basketProduct.Title</td>
+                                    <td class="pr-price">@basketProduct.Price</td>
+                                    <td class="pr-quantity">@basketProduct.Quantity</td>
+                                    <td class="pr-subtotal">@basketProduct.Price*@basketProduct.Quantity</td>
+                                    <td class="pr-remove"><i class="fas fa-times x" data-id="@basketProduct.Id" id="deleteBtn"></i></td>
+                                </tr>
+                            }
+                        
+                    </tbody>
+                </table>
+                <div class="row cart-buttons">
+                    <div class="col-12 col-xl-8 text-center text-lg-right text-xl-left">
+                        <a href="sidebar-left.html" class="button continue">Continue Shopping</a>
+                        <input type="text" placeholder="ENTER YOUR COUPON" class="coupon">
+                        <div class="button confirm">Confirm</div>
+                    </div>
+                    <div class="col-12 col-xl-4 text-center text-lg-right mt-0 mt-sm-5 mt-xl-0">
+                        <div class="button clear">Clear Cart</div>
+                        <div class="button update">Update Cart</div>
+                        <div class="deliver pt-5">
+                            <div class="container">
+                                <div class="row  deliver-parametr">
+                                    <div class="col-6 text-left">Subtotal:</div>
+                                    <div class="col-6 text-left">
+                                        <span>$</span><span class="total-price-num"></span>
+                                    </div>
+                                </div>
+                                <div class="row deliver-parametr align-items-center">
+                                    <div class="col-6 text-left">Shipping:</div>
+                                    <div class="col-6 text-left">
+                                        <div>
+                                            <input type="radio" name="shipping" id="" class="mr-2"
+                                                   checked><span>
+                                                Free
+                                                Shipping
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="shipping" id="" class="mr-2"><span>
+                                                Flat
+                                                rate
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row deliver-parametr text-left">
+                                    <div class="col-6">Total:</div>
+                                    <div class="col-6 text-left">
+                                        <span>$</span><span class="total-price-num"></span>
+                                    </div>
+                                </div>
+                                <a href="checkout.html" class="button d-block mt-4 text-center">
+                                    Proceed To
+                                    Checkout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <p class="empty-cart-alert">Your basket is currently empty.</p>
+            <a href="sidebar-left.html" class="return-btn button">Return To Shop</a>
+        </div>
+    </section>
+    <!-- product-table section ends -->
+</main>
+<!-- main ends -->
+@*@section Scripts{
+    <script src="~/js/custom.js"></script>
+}*@
