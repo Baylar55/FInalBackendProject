@@ -13,7 +13,7 @@ namespace Web.Areas.Admin.Controllers
         private readonly IMedicalDepartmentService _medicalDepartmentService;
         public MedicalDepartmentController(IMedicalDepartmentService medicalDepartmentService)
         {
-            _medicalDepartmentService=medicalDepartmentService;
+            _medicalDepartmentService = medicalDepartmentService;
         }
 
         [HttpGet]
@@ -29,6 +29,14 @@ namespace Web.Areas.Admin.Controllers
             var model = new MedicalDepartmentCreateVM();
             return View(model);
         }
+       
+        [HttpGet]
+        public async Task<IActionResult> UpdateAsync(int id)
+        {
+            var model = await _medicalDepartmentService.GetUpdateModelAsync(id);
+            if (model != null) return View(model);
+            return NotFound();
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateAsync(MedicalDepartmentCreateVM model)
@@ -36,14 +44,6 @@ namespace Web.Areas.Admin.Controllers
             var isSucceeded = await _medicalDepartmentService.CreateAsync(model);
             if (isSucceeded) return RedirectToAction(nameof(Index));
             return View(model);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> UpdateAsync(int id)
-        {
-            var model = await _medicalDepartmentService.GetUpdateModelAsync(id);
-            if (model != null) return View(model);
-            return NotFound();
         }
 
         [HttpPost]

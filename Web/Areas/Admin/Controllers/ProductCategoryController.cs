@@ -30,6 +30,14 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var model = await _categoryService.GetUpdateModelAsync(id);
+            if (model == null) return NotFound();
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(ProductCategoryCreateVM model)
         {
@@ -37,14 +45,6 @@ namespace Web.Areas.Admin.Controllers
             if (isSucceded) return RedirectToAction(nameof(Index));
             return View(model);
 
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            var model = await _categoryService.GetUpdateModelAsync(id);
-            if (model == null) return NotFound();
-            return View(model);
         }
 
         [HttpPost]

@@ -30,15 +30,7 @@ namespace Web.Areas.Admin.Controllers
             var model = new OurVisionCreateVM();
             return View(model);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(OurVisionCreateVM model)
-        {
-            var isSucceeded = await _ourVisionService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
+        
         [HttpGet]
         public async Task<IActionResult> UpdateAsync(int id)
         {
@@ -48,7 +40,15 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync(OurVisionUpdateVM model, int id)   
+        public async Task<IActionResult> CreateAsync(OurVisionCreateVM model)
+        {
+            var isSucceeded = await _ourVisionService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAsync(OurVisionUpdateVM model, int id)
         {
             if (model.Id != id) return BadRequest();
             var isSucceeded = await _ourVisionService.UpdateAsync(model, id);
@@ -63,6 +63,5 @@ namespace Web.Areas.Admin.Controllers
             if (isSucceeded) return RedirectToAction(nameof(Index));
             return NotFound();
         }
-
     }
 }

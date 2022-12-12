@@ -30,7 +30,15 @@ namespace Web.Areas.Admin.Controllers
             var model = await _questionService.GetCreateModelAsync();
             return View(model);
         }
-
+        
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var model = await _questionService.GetUpdateModelAsync(id);
+            if (model == null) return NotFound();
+            return View(model);
+        }
+     
         [HttpPost]
         public async Task<IActionResult> Create(QuestionCreateVM model)
         {
@@ -39,19 +47,11 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            var model = await _questionService.GetUpdateModelAsync(id);
-            if (model == null) return NotFound();
-            return View(model);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Update(int id, QuestionUpdateVM model)
         {
             if (id != model.Id) return BadRequest();
-            var isSucceeded = await _questionService.UpdateAsync(model,id);
+            var isSucceeded = await _questionService.UpdateAsync(model, id);
             if (isSucceeded) return RedirectToAction(nameof(Index));
             return View(model);
         }
@@ -63,6 +63,5 @@ namespace Web.Areas.Admin.Controllers
             if (isSucceeded) return RedirectToAction(nameof(Index));
             return NotFound();
         }
-
     }
 }

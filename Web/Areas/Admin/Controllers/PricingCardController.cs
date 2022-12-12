@@ -12,7 +12,7 @@ namespace Web.Areas.Admin.Controllers
     {
         private readonly IPricingCardService _pricingCardService;
 
-        public PricingCardController(IPricingCardService pricingCardService) 
+        public PricingCardController(IPricingCardService pricingCardService)
         {
             _pricingCardService = pricingCardService;
         }
@@ -30,21 +30,29 @@ namespace Web.Areas.Admin.Controllers
             var model = new PricingCardCreateVM();
             return View(model);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(PricingCardCreateVM model)
-        {
-            var isSucceeded = await _pricingCardService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
+       
         [HttpGet]
         public async Task<IActionResult> UpdateAsync(int id)
         {
             var model = await _pricingCardService.GetUpdateModelAsync(id);
             if (model != null) return View(model);
             return NotFound();
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _pricingCardService.DetailsAsync(id);
+            if (model != null) return View(model);
+            return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(PricingCardCreateVM model)
+        {
+            var isSucceeded = await _pricingCardService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
         }
 
         [HttpPost]
@@ -61,14 +69,6 @@ namespace Web.Areas.Admin.Controllers
         {
             var isSucceeded = await _pricingCardService.DeleteAsync(id);
             if (isSucceeded) return RedirectToAction(nameof(Index));
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var model = await _pricingCardService.DetailsAsync(id);
-            if (model != null) return View(model);
             return NotFound();
         }
     }

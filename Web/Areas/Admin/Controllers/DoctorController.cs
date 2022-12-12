@@ -31,20 +31,28 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(DoctorCreateVM model)
-        {
-            var isSucceeded = await _doctorService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> UpdateAsync(int id)
         {
             var model = await _doctorService.GetUpdateModelAsync(id);
             if (model != null) return View(model);
             return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _doctorService.DetailsAsync(id);
+            if (model != null) return View(model);
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(DoctorCreateVM model)
+        {
+            var isSucceeded = await _doctorService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
         }
 
         [HttpPost]
@@ -64,12 +72,5 @@ namespace Web.Areas.Admin.Controllers
             return NotFound();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var model = await _doctorService.DetailsAsync(id);
-            if (model != null) return View(model);
-            return NotFound();
-        }
     }
 }

@@ -37,18 +37,18 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
        
+         [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var model = await _productService.GetUpdateModelAsync(id);
+            return View(model);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateVM model)
         {
             var isSucceded = await _productService.CreateAsync(model);
             if (isSucceded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-        
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            var model = await _productService.GetUpdateModelAsync(id);
             return View(model);
         }
         

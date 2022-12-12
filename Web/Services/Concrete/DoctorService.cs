@@ -18,9 +18,9 @@ namespace Web.Services.Concrete
         public async Task<FindDoctorIndexVM> GetAsync(FindDoctorIndexVM model)
         {
             var doctors = _doctorRepository.FilterByName(model.DoctorName);
-             model = new FindDoctorIndexVM()
+            model = new FindDoctorIndexVM()
             {
-                Doctor =await doctors.ToListAsync()
+                Doctor = await doctors.ToListAsync()
             };
             return model;
         }

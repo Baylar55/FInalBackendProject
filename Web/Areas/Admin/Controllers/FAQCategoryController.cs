@@ -30,19 +30,19 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(FAQCategoryCreateVM model)
-        {
-            var isSucceeded = await _categoryService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
             var model = await _categoryService.GetUpdateModelAsync(id);
             if (model == null) return NotFound();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(FAQCategoryCreateVM model)
+        {
+            var isSucceeded = await _categoryService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
             return View(model);
         }
 
@@ -63,6 +63,5 @@ namespace Web.Areas.Admin.Controllers
             return NotFound();
         }
 
-      
     }
 }

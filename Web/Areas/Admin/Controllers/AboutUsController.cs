@@ -33,20 +33,28 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(AboutUsCreateVM model)
-        {
-            var isSucceeded = await _aboutUsService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> UpdateAsync(int id)
         {
             var model = await _aboutUsService.GetUpdateModelAsync();
             if (model != null) return View(model);
             return NotFound();
+        }
+       
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            var model = await _aboutUsService.DetailsAsync();
+            if (model != null) return View(model);
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(AboutUsCreateVM model)
+        {
+            var isSucceeded = await _aboutUsService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
         }
 
         [HttpPost]
@@ -66,14 +74,7 @@ namespace Web.Areas.Admin.Controllers
             return NotFound();
         }
 
-        public async Task<IActionResult> Details()
-        {
-            var model = await _aboutUsService.DetailsAsync();
-            if (model != null) return View(model);
-            return NotFound();
-        }
-
-        #endregion 
+        #endregion
 
         #region AboutPhoto
 

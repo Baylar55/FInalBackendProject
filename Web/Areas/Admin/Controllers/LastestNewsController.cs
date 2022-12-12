@@ -32,20 +32,28 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(LastestNewsCreateVM model)
-        {
-            var isSucceeded = await _lastestNewsService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> UpdateAsync(int id)
         {
             var model = await _lastestNewsService.GetUpdateModelAsync(id);
             if (model != null) return View(model);
             return NotFound();
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _lastestNewsService.DetailsAsync(id);
+            if (model != null) return View(model);
+            return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(LastestNewsCreateVM model)
+        {
+            var isSucceeded = await _lastestNewsService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
         }
 
         [HttpPost]
@@ -62,14 +70,6 @@ namespace Web.Areas.Admin.Controllers
         {
             var isSucceeded = await _lastestNewsService.DeleteAsync(id);
             if (isSucceeded) return RedirectToAction(nameof(Index));
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var model = await _lastestNewsService.DetailsAsync(id);
-            if (model != null) return View(model);
             return NotFound();
         }
     }

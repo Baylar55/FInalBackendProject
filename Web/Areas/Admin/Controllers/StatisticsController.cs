@@ -17,28 +17,31 @@ namespace Web.Areas.Admin.Controllers
             _statisticService = statisticService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = await _statisticService.GetAllAsync();
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return View();
         }
-
+      
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var model = await _statisticService.GetUpdateModelAsync(id);
+            return View(model);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Create(StatisticsCreateVM model)
         {
             var isSucceded = await _statisticService.CreateAsync(model);
             if (isSucceded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
-        public async Task<IActionResult> Update(int id)
-        {
-            var model = await _statisticService.GetUpdateModelAsync(id);
             return View(model);
         }
 

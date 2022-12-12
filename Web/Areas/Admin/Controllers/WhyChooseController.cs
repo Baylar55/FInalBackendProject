@@ -32,20 +32,28 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(WhyChooseCreateVM model)
-        {
-            var isSucceeded = await _whyChooseService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> UpdateAsync()
         {
             var model = await _whyChooseService.GetUpdateModelAsync();
             if (model != null) return View(model);
             return NotFound();
+        }
+       
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            var model = await _whyChooseService.DetailsAsync();
+            if (model != null) return View(model);
+            return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(WhyChooseCreateVM model)
+        {
+            var isSucceeded = await _whyChooseService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
         }
 
         [HttpPost]
@@ -62,14 +70,6 @@ namespace Web.Areas.Admin.Controllers
         {
             var isSucceeded = await _whyChooseService.DeleteAsync();
             if (isSucceeded) return RedirectToAction(nameof(Index));
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Details()
-        {
-            var model = await _whyChooseService.DetailsAsync();
-            if (model != null) return View(model);
             return NotFound();
         }
     }

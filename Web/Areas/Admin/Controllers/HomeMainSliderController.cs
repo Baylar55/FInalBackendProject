@@ -32,6 +32,14 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateAsync(int id)
+        {
+            var model = await _homeMainSliderService.GetUpdateModelAsync(id);
+            if (model != null) return View(model);
+            return NotFound();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAsync(HomeMainSliderCreateVM model)
         {
@@ -40,19 +48,11 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> UpdateAsync(int id)
-        {
-            var model = await _homeMainSliderService.GetUpdateModelAsync(id);
-            if (model != null)  return View(model); 
-            return NotFound();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync(HomeMainSliderUpdateVM model,int id)
+        public async Task<IActionResult> UpdateAsync(HomeMainSliderUpdateVM model, int id)
         {
             if (model.Id != id) return BadRequest();
-            var isSucceeded = await _homeMainSliderService.UpdateAsync(model,id);
+            var isSucceeded = await _homeMainSliderService.UpdateAsync(model, id);
             if (isSucceeded) return RedirectToAction(nameof(Index));
             return View(model);
         }

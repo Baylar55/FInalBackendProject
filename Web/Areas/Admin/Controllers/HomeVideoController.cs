@@ -31,20 +31,20 @@ namespace Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(HomeVideoCreateVM model)
-        {
-            var isSucceeded = await _homeVideoService.CreateAsync(model);
-            if (isSucceeded) return RedirectToAction(nameof(Index));
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> UpdateAsync()
         {
             var model = await _homeVideoService.GetUpdateModelAsync();
             if (model != null) return View(model);
             return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(HomeVideoCreateVM model)
+        {
+            var isSucceeded = await _homeVideoService.CreateAsync(model);
+            if (isSucceeded) return RedirectToAction(nameof(Index));
+            return View(model);
         }
 
         [HttpPost]

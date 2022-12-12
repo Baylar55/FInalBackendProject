@@ -19,15 +19,12 @@ namespace DataAccess.Repositories.Concrete
         {
             _context = context;
         }
-        public async Task<List<Doctor>> GetFourDoctorAsync()
+        public async Task<List<Doctor>> GetHomeDoctorAsync()
         {
-            return await _context.Doctor.Take(4).ToListAsync();
+            return await _context.Doctor.Where(d => d.ShowInHome).ToListAsync();
         }
 
         #region Filter Methods
-
-      
-
         public IQueryable<Doctor> FilterByName(string name)
         {
             return _context.Doctor.Where(d => !string.IsNullOrEmpty(name) ? d.Name.Contains(name) : true);

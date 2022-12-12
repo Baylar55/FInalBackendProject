@@ -9,7 +9,7 @@ namespace DataAccess.Repositories.Abstract
 {
     public interface IDoctorRepository : IRepository<Doctor>
     {
-        Task<List<Doctor>> GetFourDoctorAsync();
+        Task<List<Doctor>> GetHomeDoctorAsync();
         IQueryable<Doctor> FilterByName(string name);
     }
 }

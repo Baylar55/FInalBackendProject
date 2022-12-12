@@ -46,6 +46,7 @@ namespace Web.Areas.Admin.Services.Concrete
                 IntroductingSubTitle = doctor.IntroductingSubTitle,
                 IntroductingText = doctor.IntroductingText,
                 WorkingTime = doctor.WorkingTime,
+                ShowInHome= doctor.ShowInHome,
             };
             return model;
         }
@@ -97,7 +98,8 @@ namespace Web.Areas.Admin.Services.Concrete
                 WorkingTime = model.WorkingTime,
                 CreatedAt = DateTime.Now,
                 PhotoName = await _fileService.UploadAsync(model.Photo),
-                Speciality = model.Specialty
+                Speciality = model.Specialty,
+                ShowInHome=model.ShowInHome,
             };
             await _doctorRepository.CreateAsync(doctor);
             return true;
@@ -129,6 +131,7 @@ namespace Web.Areas.Admin.Services.Concrete
             doctor.IntroductingText = model.IntroductingText;
             doctor.WorkingTime = model.WorkingTime;
             doctor.ModifiedAt = DateTime.Now;
+            doctor.ShowInHome=model.ShowInHome;
             if (model.Photo != null)
             {
                 if (!_fileService.IsImage(model.Photo))
@@ -147,7 +150,5 @@ namespace Web.Areas.Admin.Services.Concrete
             await _doctorRepository.UpdateAsync(doctor);
             return true;
         }
-
-
     }
 }

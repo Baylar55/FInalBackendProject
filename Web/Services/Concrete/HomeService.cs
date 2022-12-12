@@ -40,15 +40,15 @@ namespace Web.Services.Concrete
         {
             var model = new HomeIndexVM()
             {
-                HomeMainSlider = await _homeMainSliderRepository.GetAllAsync(),
-                OurVision = await _ourVisionRepository.GetAllAsync(),
                 MedicalDepartment = await _medicalDepartmentRepository.GetAllAsync(),
-                Doctor = await _doctorRepository.GetFourDoctorAsync(),
-                WhyChoose = await _whyChooseRepository.GetAsync(),
-                About = await _aboutUsRepository.GetAsync(),
+                HomeMainSlider = await _homeMainSliderRepository.GetAllAsync(),
                 LastestNews = await _lastestNewsRepository.GetAllAsync(),
-                HomeVideo = await _homeVideoRepository.GetAsync(),
+                Doctor = await _doctorRepository.GetHomeDoctorAsync(),
+                OurVision = await _ourVisionRepository.GetAllAsync(),
                 Statistics=await _statisticsRepository.GetAllAsync(),
+                WhyChoose = await _whyChooseRepository.GetAsync(),
+                HomeVideo = await _homeVideoRepository.GetAsync(),
+                About = await _aboutUsRepository.GetAsync(),
             };
             return model;
         }
